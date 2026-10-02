@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#071018" />
+    <meta name="description" content="A physics-driven infinite ascent game." />
+    <title>UPTHRUST — Infinite Ascent</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell" aria-label="UPTHRUST game">
+      <canvas id="game" aria-label="Rocket flight game canvas"></canvas>
+
+      <section class="hud" aria-live="polite">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div>
+            <p class="eyebrow">ASCENT PROGRAM</p>
+            <h1>UPTHRUST</h1>
+          </div>
+        </div>
+
+        <div class="readouts">
+          <div class="readout primary">
+            <span class="readout-label">ALTITUDE</span>
+            <strong><span id="altitude">00000</span><small> m</small></strong>
+          </div>
+          <div class="readout">
+            <span class="readout-label">BEST</span>
+            <strong><span id="best">00000</span><small> m</small></strong>
+          </div>
+          <div class="readout">
+            <span class="readout-label">VELOCITY</span>
+            <strong><span id="velocity">000</span><small> m/s</small></strong>
+          </div>
+        </div>
+
+        <div class="status-stack">
+          <div class="threat-panel">
+            <span class="status-dot"></span>
+            <div>
+              <span class="readout-label">AIRSPACE</span>
+              <strong id="zone">TROPOSPHERE</strong>
+            </div>
+            <span id="threat" class="threat-level">LOW</span>
+          </div>
+          <div id="shieldStatus" class="shield-status" hidden>
+            <div class="shield-copy">
+              <span>FORCEFIELD</span>
+              <strong id="shieldTime">15.0s</strong>
+            </div>
+            <div class="shield-track"><span id="shieldBar"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="briefing" class="briefing panel">
+        <p class="panel-kicker">FLIGHT DIRECTIVE / 01</p>
+        <h2>Climb until<br />the sky runs out.</h2>
+        <p class="panel-copy">Hold thrust. Steer through the debris field. The airspace gets less forgiving with every kilometer.</p>
+        <div class="controls-grid">
+          <div><span class="key wide">SPACE</span><span>THRUST</span></div>
+          <div><span class="key">A</span><span class="key">D</span><span>STEER</span></div>
+        </div>
+        <button id="launchButton" class="launch-button">BEGIN ASCENT <span>↗</span></button>
+        <p class="launch-hint">or hold Space to launch</p>
+      </section>
+
+      <section id="gameOver" class="game-over panel" hidden>
+        <p class="panel-kicker alert">MISSION TERMINATED</p>
+        <h2>Signal lost<br /><span id="finalAltitude">0 m</span></h2>
+        <div class="mission-stats">
+          <div><span>PEAK ALTITUDE</span><strong id="peakStat">0 m</strong></div>
+          <div><span>FLIGHT TIME</span><strong id="timeStat">0.0 s</strong></div>
+          <div><span>FIELDS FOUND</span><strong id="shieldStat">0</strong></div>
+        </div>
+        <button id="restartButton" class="launch-button">RELAUNCH <span>R</span></button>
+      </section>
+
+      <div class="altimeter" aria-hidden="true">
+        <span class="altimeter-label">ALT</span>
+        <div id="altimeterTicks" class="altimeter-ticks"></div>
+      </div>
+
+      <div class="corner-controls">
+        <button id="soundButton" class="icon-button" aria-label="Toggle sound" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path class="sound-wave" d="M16 9.2a4 4 0 0 1 0 5.6M18.5 6.8a7.4 7.4 0 0 1 0 10.4"/></svg>
+        </button>
+        <button id="effectsButton" class="effects-button" aria-pressed="false">FX HIGH</button>
+      </div>
+
+      <div class="touch-controls" aria-label="Touch controls">
+        <button id="touchLeft" aria-label="Steer left">←</button>
+        <button id="touchThrust" class="touch-thrust" aria-label="Thrust">THRUST</button>
+        <button id="touchRight" aria-label="Steer right">→</button>
+      </div>
+
+      <div id="toast" class="toast" aria-live="assertive"></div>
+      <div class="grain" aria-hidden="true"></div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
